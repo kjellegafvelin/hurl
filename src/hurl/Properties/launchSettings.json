@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "hurl": {
+      "commandName": "Project",
+      "commandLineArgs": "https://cnn.com -c 5 -r 2"
+    }
+  }
+}
