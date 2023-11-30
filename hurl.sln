@@ -5,6 +5,11 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hurl", "src\hurl\hurl.csproj", "{DC03D1CE-449B-4BED-BF68-893A845C1703}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FA8D02E2-0636-4126-826F-C3C51AB70D32}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

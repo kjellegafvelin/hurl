@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 
@@ -7,14 +8,19 @@ class UrlCommand : Command<UrlCommand.Settings>
 {
     public class Settings : CommandSettings
     {
+        [Description("The URL to create requests for")]
         [CommandArgument(0, "[Url]")]
         public string? Url { get; set; }
 
+        [Description("Number of requests to make per runner")]
         [CommandOption("-c|--count")]
-        public int Count { get; set; } = 1;
+        [DefaultValue(1)]
+        public int Count { get; set; }
 
+        [Description("Number of runners to use in parallel")]
         [CommandOption("-r|--runners")]
-        public int Runners { get; set; } = 1;
+        [DefaultValue(1)]
+        public int Runners { get; set; }
     }
 
     public override ValidationResult Validate(CommandContext context, Settings settings)
@@ -39,6 +45,9 @@ class UrlCommand : Command<UrlCommand.Settings>
 
     public override int Execute(CommandContext context, Settings settings)
     {
+        AnsiConsole.MarkupLine($"[bold]Hurl[/] - {GitVersionInformation.SemVer}");
+        AnsiConsole.WriteLine();
+
         AnsiConsole.MarkupLine($"[bold]Running {settings.Count} requests/runner to '{settings.Url}' using {settings.Runners} runner(s)[/]");
 
         using (var client = new System.Net.Http.HttpClient())
@@ -68,10 +77,10 @@ class UrlCommand : Command<UrlCommand.Settings>
              
             var table = new Table();
             table.AddColumn("Runner"); 
-            table.AddColumn("Avg. Time (ms)");
-            table.AddColumn("Min. Time (ms)");
-            table.AddColumn("Max. Time (ms)");
-            table.AddColumn("OK requests");
+            table.AddColumn("Avg. Time (ms)", col => col.RightAligned());
+            table.AddColumn("Min. Time (ms)", col => col.RightAligned());
+            table.AddColumn("Max. Time (ms)", col => col.RightAligned());
+            table.AddColumn("OK requests", col => col.RightAligned());
 
             tasks.OrderBy(x => x.Result.Id).ToList().ForEach(t =>
             {
@@ -79,7 +88,7 @@ class UrlCommand : Command<UrlCommand.Settings>
                     var okResults = runResult.UrlResults.Where(x => x.StatusCode == HttpStatusCode.OK).ToList();
 
                     table.AddRow($"#{t.Result.Id}",
-                        okResults.Average(x => x.ElapsedMilliseconds).ToString(),
+                        ((long)okResults.Average(x => x.ElapsedMilliseconds)).ToString(),
                         okResults.Min(x => x.ElapsedMilliseconds).ToString(),
                         okResults.Max(x => x.ElapsedMilliseconds).ToString(),
                         $"{okResults.Count}/{runResult.UrlResults.Count}");

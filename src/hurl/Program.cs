@@ -1,10 +1,13 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Cli;
 
-AnsiConsole.MarkupLine("[bold]Hurl[/] - A simple HTTP load testing tool");
-AnsiConsole.MarkupLine($"Version {GitVersionInformation.FullSemVer}");
-AnsiConsole.WriteLine();
-
 var app = new CommandApp<UrlCommand>();
+
+app.WithDescription("Generates a burst of HTTP requests to the specified URL.")
+   .Configure(config =>
+   {
+       config.SetApplicationVersion(GitVersionInformation.FullSemVer);
+       config.SetApplicationName("hurl");
+   });
 
 return app.Run(args);
