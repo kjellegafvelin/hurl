@@ -5,4 +5,5 @@ class UrlResult
 {
     public HttpStatusCode? StatusCode { get; set; }
     public long ElapsedMilliseconds { get; set; }
+    public long ContentLength { get; internal set; }
 }
