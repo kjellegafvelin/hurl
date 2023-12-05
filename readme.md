@@ -20,6 +20,7 @@ OPTIONS:
     -v, --version               Prints version information
     -c, --count      1          Number of requests to make per runner
     -r, --runners    1          Number of runners to use in parallel
+        --ramp-up               Ramp up time in milliseconds between each runner
 ```
 
 

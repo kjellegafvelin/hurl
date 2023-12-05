@@ -12,7 +12,21 @@
     <PackageId>gp-hurl</PackageId>
     <ToolCommandName>hurl</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Title>Hurl</Title>
+    <Authors>kgafvelin</Authors>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageIcon>gp_logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/kjellegafvelin/hurl</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Hurl is a dotnet tool that can be used to load test a web page or api.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
   
   
   <ItemGroup>
@@ -21,6 +35,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Spectre.Console.Cli" Version="0.48.0" />
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <None Update="gp_logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

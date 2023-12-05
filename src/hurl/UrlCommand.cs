@@ -24,8 +24,7 @@ class UrlCommand : Command<UrlCommand.Settings>
 
         [Description("Ramp up time in milliseconds between each runner")]
         [CommandOption("--ramp-up")]
-        [DefaultValue(0)] 
-        public int RampUp { get; set; }
+        public int? RampUp { get; set; }
     }
 
     public override ValidationResult Validate(CommandContext context, Settings settings)
@@ -45,12 +44,12 @@ class UrlCommand : Command<UrlCommand.Settings>
             return ValidationResult.Error("Runners must be greater than 0");
         }
 
-        if (settings.RampUp < 1)
+        if (settings?.RampUp < 1)
         {
                return ValidationResult.Error("Ramp up must be greater than 0");
         }
 
-        if (settings.RampUp > 0 && settings.Runners == 1)
+        if (settings?.RampUp > 0 && settings.Runners == 1)
         {
             return ValidationResult.Error("Ramp up requires more than 1 runner");
         }
@@ -146,7 +145,10 @@ class UrlCommand : Command<UrlCommand.Settings>
 
     private static async Task<RunResult> Run(int id, Settings settings, ProgressTask task)
     {
-        await Task.Delay(((settings.RampUp * id) - settings.RampUp) /** 1000*/);
+        if (settings?.RampUp > 0 && settings.Runners > 1)
+        {
+            await Task.Delay((int)((settings.RampUp * id) - settings.RampUp) /** 1000*/);
+        }
 
         var runResult = new RunResult
         {
