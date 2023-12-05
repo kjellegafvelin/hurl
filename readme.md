@@ -5,6 +5,14 @@ performance of your web applications or api:s.
 
 You can specify the number of runners to use, and the number of requests to make per runner.
 
+## Installation
+
+Open your terminal and run the following command:
+
+```
+dotnet tool install --global gp-hurl
+```
+
 ## Usage
 
 ```
