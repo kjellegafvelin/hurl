@@ -1,4 +1,4 @@
-# Hurl - A simple HTTP load generator [![Build Status](https://github.com/kjellegafvelin/hurl/workflows/ci/badge.svg?branch=master)](https://github.com/kjellegafvelin/hurl/actions) [![Nuget](https://img.shields.io/nuget/v/gp-hurl)](https://www.nuget.org/packages/gp-hurl/)
+# Hurl - A simple HTTP load generator [![Nuget](https://img.shields.io/nuget/v/gp-hurl)](https://www.nuget.org/packages/gp-hurl/)
 
 Hurl is used to generate HTTP load against a target, and report on the results. You can use it to test the 
 performance of your web applications or api:s.
